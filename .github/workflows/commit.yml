@@ -1,0 +1,25 @@
+name: Commit as Bot
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set Git config
+        run: |
+          git config --global user.name "YourBot"
+          git config --global user.email "yourbot@users.noreply.github.com"
+
+      - name: Make changes and commit
+        run: |
+          echo "Automated commit" >> changes.txt
+          git add .
+          git commit -m "Automated commit from bot"
+          git push https://x-access-token:${{ secrets.BOT_TOKEN }}@github.com/YOUR_ORG/YOUR_REPO.git
