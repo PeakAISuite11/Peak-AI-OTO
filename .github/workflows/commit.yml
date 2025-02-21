@@ -23,4 +23,4 @@ jobs:
           echo "Automated commit" >> changes.txt
           git add .
           git commit -m "Automated commit from bot"
-          git push https://x-access-token:${{ secrets.BOT_TOKEN }}@https://github.com/PeakAISuite11/Peak-AI-OTO.git
+          git push https://x-access-token:${{ secrets.BOT_TOKEN }}@github.com/PeakAISuite11/Peak-AI-OTO.git
