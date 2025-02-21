@@ -1,11 +1,10 @@
-name: Commit as GitHub App
+name: Commit as Bot
 
 on:
   push:
     branches:
       - main
-permissions:
-  contents: write  # Grant write permissions for Actions
+
 jobs:
   commit:
     runs-on: ubuntu-latest
@@ -13,23 +12,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Authenticate as GitHub App
-        id: auth
-        uses: tibdex/github-app-token@v1
-        with:
-          app_id: ${{ secrets.GITHUB_APP_ID }}
-          private_key: ${{ secrets.GITHUB_APP_PRIVATE_KEY }}
-
-      - name: Set Git config (Commit as GitHub App)
+      - name: Set Git config
         run: |
-          git config --global user.name "Your Organization Bot"
-          git config --global user.email "bot@yourorg.com"
+          git config --global user.name "YourBot"
+          git config --global user.email "yourbot@users.noreply.github.com"
 
       - name: Make changes and commit
         run: |
           echo "Automated commit" >> changes.txt
           git add .
-          git commit -m "Automated commit from GitHub App"
-          git push origin main
-        env:
-          GITHUB_TOKEN: ${{ steps.auth.outputs.token }}
+          git commit -m "Automated commit from bot"
+          git push https://x-access-token:${{ secrets.BOT_TOKEN }}@github.com/YOUR_ORG/YOUR_REPO.git
